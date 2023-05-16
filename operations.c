@@ -1,22 +1,22 @@
 #include "monty.h"
+
 /**
  * _push - insert at the top of the stack
-
  * @stack: double pointer to first element
- * @line_number: element to insert 
+ * @line_number: element to insert
  *
  * return: void
  */
 
 void _push(stack_t **stack, unsigned int line_number)
 {
-    stack_t *newelement;
-    
+	stack_t *newelement;
+
 	if (stack == NULL)
 		return;
-	
+
 	newelement = (stack_t *)malloc(sizeof(stack_t));
-	
+
 	if (newelement == NULL)
 		return;
 
@@ -29,14 +29,11 @@ void _push(stack_t **stack, unsigned int line_number)
 	}
 	else
 	{
-		
 		newelement->next = (*stack);
 		newelement->prev = (*stack)->prev;
 		(*stack)->prev = newelement;
 		(*stack) = newelement;
 	}
-	
-
 }
 
 /**
@@ -47,22 +44,24 @@ void _push(stack_t **stack, unsigned int line_number)
  *
  * return: void
  */
+
 void _pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *aux;
 
 	aux = *stack;
-	if(aux == NULL)
+
+	if (aux == NULL)
 		return;
-	while((aux)->next != NULL)
+
+	while ((aux)->next != NULL)
 	{
 		printf("%i\n", (aux)->n);
 		(aux) = (aux)->next;
 	}
-	(void)(line_number);
-	// printf("%i", line_number);
-}
 
+	(void)(line_number);
+}
 
 /**
  * _pint - insert at the top of the stack
@@ -72,9 +71,10 @@ void _pall(stack_t **stack, unsigned int line_number)
  *
  * return: void
  */
+
 void _pint(stack_t **stack, unsigned int line_number)
 {
-	if(stack == NULL)
+	if (stack == NULL)
 		return;
 	printf("%i\n", (*stack)->n);
 
