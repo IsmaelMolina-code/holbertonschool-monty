@@ -11,13 +11,7 @@ void _push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *element = NULL;
 	unsigned int num = 0;
-	char *token = NULL, *arg = NULL;
-
-	if (stack == NULL || arg == NULL || !is_number(arg))
-	{
-		fprintf(stderr, "L%u: usage: push integer\n", line_number);
-		exit(EXIT_FAILURE);
-	}
+	char *token = NULL;
 
 	element = malloc(sizeof(stack_t));
 
