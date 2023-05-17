@@ -13,9 +13,12 @@ int main(int argc, char *argv[])
 {
 	FILE *file;
 	char *line = NULL;
+	char *opcode;
+	// char *value;
 	size_t len = 0;
 	unsigned int line_number = 0;
 	stack_t *stack = NULL;
+	void (*f)(stack_t **stack, unsigned int line_number);
 
 	if (argc != 2)
 	{
@@ -34,14 +37,30 @@ int main(int argc, char *argv[])
 	while (getline(&line, &len, file) != -1)
 	{
 		line_number++;
-		char *opcode = strtok(line, " \n\t$");
-		if (opcode != NULL && opcode[0] != '\0' && opcode[0] != '#')
-			get_op(opcode, &stack, line_number);
+		opcode = strtok(line, " \n\t");
+		if(!opcode)
+			continue;
+		// value = strtok(NULL, " ");
+		// if (value == NULL)
+		// 	value = "0";
+		// if (opcode != NULL && opcode[0] != '\0' && opcode[0] != '#')
+		f = get_op(opcode);
+		if (!f)
+		{
+			fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
+			exit(EXIT_FAILURE);
+		}
+		f(&stack, line_number);
 	}
+
+	
+
 
 	free_stack(&stack);
 	free(line);
 	fclose(file);
+
+	
 
 	return (EXIT_SUCCESS);
 }

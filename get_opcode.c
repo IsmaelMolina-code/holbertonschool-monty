@@ -11,33 +11,30 @@
  *
  * return: void
  */
-
-void get_op(char *op, stack_t **stack, unsigned int line_number)
+void (*get_op(char *op))(stack_t **stack, unsigned int line_number)
 {
-	size_t i;
-	size_t op_length = strlen(op);
+	int i = 0;
 
 	instruction_t valid_cops[] = {
 		{"push", _push},
 		{"pall", _pall},
-		{"pint", _pint}
-		/*
-		 *{"pop", _pop},
-		 *{"swap", _swap},
-		 *{"add", _add},
-		 *{"nop", _nop},
-		 */
+		{"pint", _pint},
+		// {"pop", _pop},
+		// {"swap", _swap},
+		// {"add", _add},
+		// {"nop", _nop},
+		{NULL, NULL}
 	};
 
-	if (op[op_length - 1] == '$')
-		op[op_length - 1] = '\0';
-
-	for (i = 0; valid_cops[i].opcode != NULL; i++)
+	// for (i = 0; valid_cops[i].opcode != NULL; i++)
+	while (i < 3)
 	{
 		if (strcmp(valid_cops[i].opcode, op) == 0)
 		{
-			valid_cops[i].f(stack, line_number);
-			return;
+			// valid_cops[i].f(stack, line_number);
+			return (valid_cops[i].f);
 		}
+		i++;
 	}
+	return (NULL);
 }

@@ -7,33 +7,33 @@
  *
  * return: void
  */
-
 void _push(stack_t **stack, unsigned int line_number)
 {
-	stack_t *newelement;
+	stack_t *element = NULL;
+	unsigned int num = 0;
+	char *token = NULL;
 
-	if (stack == NULL)
-		return;
+	element = malloc(sizeof(stack_t));
 
-	newelement = (stack_t *)malloc(sizeof(stack_t));
-
-	if (newelement == NULL)
-		return;
-
-	newelement->n = line_number;
-
-	if (*stack == NULL)
+	if (!element)
 	{
-		newelement->prev = NULL;
-		newelement->next = NULL;
+		fprintf(stderr, "Error: malloc failed\n");
+		exit(EXIT_FAILURE);
 	}
-	else
+	token = strtok(NULL, " \n\t");
+	if (!token || !stack)
 	{
-		newelement->next = (*stack);
-		newelement->prev = (*stack)->prev;
-		(*stack)->prev = newelement;
-		(*stack) = newelement;
+		fprintf(stderr, "L%u: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
 	}
+	num = atoi(token);
+	element->n = num;
+	element->prev = NULL;
+	element->next = *stack;
+
+	if (element->next != NULL)
+		(element->next)->prev = element;
+	*stack = element;
 }
 
 /**
@@ -47,20 +47,16 @@ void _push(stack_t **stack, unsigned int line_number)
 
 void _pall(stack_t **stack, unsigned int line_number)
 {
-	stack_t *aux;
+	stack_t *aux = *stack;
 
-	aux = *stack;
+	(void)line_number;
 
-	if (aux == NULL)
-		return;
-
-	while ((aux)->next != NULL)
+	while (aux)
 	{
-		printf("%i\n", (aux)->n);
-		(aux) = (aux)->next;
+		printf("%d\n", aux->n);
+		aux = aux->next;
 	}
 
-	(void)(line_number);
 }
 
 /**
