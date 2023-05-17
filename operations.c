@@ -70,10 +70,11 @@ void _pall(stack_t **stack, unsigned int line_number)
 
 void _pint(stack_t **stack, unsigned int line_number)
 {
-	if (stack == NULL)
-		return;
+	if (stack == NULL || *stack == NULL)
+	{
+		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 
 	printf("%i\n", (*stack)->n);
-
-	(void)(line_number);
 }
