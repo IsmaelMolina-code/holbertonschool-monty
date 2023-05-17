@@ -25,11 +25,12 @@ void free_array(char **array)
 */
 char **tokenizer(char *buffer, char *delim)
 {
+	char *buffer_copy = strdup(buffer);
 	char *token = NULL, *tokendup = NULL;
 	char **array = NULL;
 	int token_counter = 0, i = 0;
 
-	token = strtok(buffer, delim);
+	token = strtok(buffer_copy, delim);
 
 	/*count number of tokens*/
 	while (token != NULL)
@@ -42,9 +43,12 @@ char **tokenizer(char *buffer, char *delim)
 	array = malloc(sizeof(char *) * token_counter);
 
 	if (array == NULL)
+	{
+		free(buffer_copy);
 		exit(1);
+	}
 
-	tokendup = strtok(buffer, delim);
+	tokendup = strtok(buffer_copy, delim);
 
 	/*store tokens in array*/
 	for (i = 0; tokendup != NULL; i++)
@@ -53,12 +57,15 @@ char **tokenizer(char *buffer, char *delim)
 		if (array[i] == NULL)
 		{
 			free_array(array);
+			free(buffer_copy);
 			exit(1);
 		}
 
 		tokendup = strtok(NULL, delim);
 	}
 	array[i] = NULL;
+
+	free(buffer_copy);
 
 	return (array);
 }

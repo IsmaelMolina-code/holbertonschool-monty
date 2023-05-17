@@ -15,10 +15,12 @@
 void get_op(char *op, stack_t **stack, unsigned int line_number)
 {
 	size_t i;
+	size_t op_length = strlen(op);
+
 	instruction_t valid_cops[] = {
 		{"push", _push},
 		{"pall", _pall},
-		{"pint", _pint},
+		{"pint", _pint}
 		/*
 		 *{"pop", _pop},
 		 *{"swap", _swap},
@@ -26,6 +28,10 @@ void get_op(char *op, stack_t **stack, unsigned int line_number)
 		 *{"nop", _nop},
 		 */
 	};
+
+	if (op[op_length - 1] == '$')
+		op[op_length - 1] = '\0';
+
 	for (i = 0; valid_cops[i].opcode != NULL; i++)
 	{
 		if (strcmp(valid_cops[i].opcode, op) == 0)

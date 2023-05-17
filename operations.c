@@ -24,8 +24,8 @@ void _push(stack_t **stack, unsigned int line_number)
 
 	if (*stack == NULL)
 	{
-		newelement->prev = newelement;
-		newelement->next = newelement;
+		newelement->prev = NULL;
+		newelement->next = NULL;
 	}
 	else
 	{
@@ -76,6 +76,7 @@ void _pint(stack_t **stack, unsigned int line_number)
 {
 	if (stack == NULL)
 		return;
+
 	printf("%i\n", (*stack)->n);
 
 	(void)(line_number);
