@@ -26,12 +26,10 @@ void free_array(char **array)
 char **tokenizer(char *buffer, char *delim)
 {
 	char *buffer_copy = strdup(buffer);
-	char *token = NULL, *tokendup = NULL;
-	char **array = NULL;
+	char *token = NULL, *tokendup = NULL, **array = NULL;
 	int token_counter = 0, i = 0;
 
 	token = strtok(buffer_copy, delim);
-
 	/*count number of tokens*/
 	while (token != NULL)
 	{
@@ -56,11 +54,9 @@ char **tokenizer(char *buffer, char *delim)
 		array[i] = strdup(tokendup);
 		if (array[i] == NULL)
 		{
-			free_array(array);
-			free(buffer_copy);
+			free_array(array), free(buffer_copy);
 			exit(1);
 		}
-
 		tokendup = strtok(NULL, delim);
 	}
 	array[i] = NULL;

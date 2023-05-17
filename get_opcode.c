@@ -1,16 +1,13 @@
 #include "monty.h"
 
 /**
- * get_op - valid code options
+ * get_op - Get the corresponding function for a given opcode.
  *
  * @op: option to code
  *
- * @stack: double pointer
- *
- * @line_number:
- *
- * return: void
+ * Return: Pointer to the corresponding function, or NULL if not found.
  */
+
 void (*get_op(char *op))(stack_t **stack, unsigned int line_number)
 {
 	int i = 0;
@@ -19,19 +16,14 @@ void (*get_op(char *op))(stack_t **stack, unsigned int line_number)
 		{"push", _push},
 		{"pall", _pall},
 		{"pint", _pint},
-		// {"pop", _pop},
-		// {"swap", _swap},
-		// {"add", _add},
-		// {"nop", _nop},
 		{NULL, NULL}
 	};
 
-	// for (i = 0; valid_cops[i].opcode != NULL; i++)
 	while (i < 3)
 	{
 		if (strcmp(valid_cops[i].opcode, op) == 0)
 		{
-			// valid_cops[i].f(stack, line_number);
+			/* valid_cops[i].f(stack, line_number);*/
 			return (valid_cops[i].f);
 		}
 		i++;

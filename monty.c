@@ -12,9 +12,7 @@
 int main(int argc, char *argv[])
 {
 	FILE *file;
-	char *line = NULL;
-	char *opcode;
-	// char *value;
+	char *line = NULL, *opcode;
 	size_t len = 0;
 	unsigned int line_number = 0;
 	stack_t *stack = NULL;
@@ -38,12 +36,8 @@ int main(int argc, char *argv[])
 	{
 		line_number++;
 		opcode = strtok(line, " \n\t");
-		if(!opcode)
+		if (!opcode)
 			continue;
-		// value = strtok(NULL, " ");
-		// if (value == NULL)
-		// 	value = "0";
-		// if (opcode != NULL && opcode[0] != '\0' && opcode[0] != '#')
 		f = get_op(opcode);
 		if (!f)
 		{
@@ -52,15 +46,9 @@ int main(int argc, char *argv[])
 		}
 		f(&stack, line_number);
 	}
-
-	
-
-
 	free_stack(&stack);
 	free(line);
 	fclose(file);
-
-	
 
 	return (EXIT_SUCCESS);
 }
